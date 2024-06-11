@@ -1,3 +1,7 @@
+
+in ubuntu server
+---------------
+
 sudo apt-get update -y
 sudo su -
 
