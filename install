@@ -1,0 +1,53 @@
+sudo apt-get update -y
+sudo su -
+
+
+
+
+apt install docker.io -y
+usermod -aG docker ubuntu
+docker images
+systemctl enable docker.service
+systemctl restart docker
+systemctl status docker
+
+
+
+
+
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+systemctl daemon-reload
+systemctl start kubelet
+systemctl enable kubelet.service
+
+
+in master node 
+--------------
+
+
+kubeadm init
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+swapoff -a
+sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
+
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+
+
+kubeadm token create --print-join-command
+
+
+
+
+
+
+swapoff -a
+sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
