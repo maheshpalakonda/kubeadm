@@ -1,0 +1,56 @@
+eks-cluster setup 
+-----------------
+
+unsing aws console 
+------------------
+
+create iam role for 
+------------------
+
+eks 
+eks-cluster 
+
+
+create vpc required for eks setup 
+---------------------------------
+
+using cloud format 
+create stack using this link
+https://s3.us-west-2.amazonaws.com/amazon-eks/cloudformation/2020-10-29/amazon-eks-vpc-private-subnets.yaml
+ 
+
+https://docs.aws.amazon.com/eks/latest/userguide/creating-a-vpc.html
+
+create eks cluseter
+
+to create node group 
+-------------------
+
+create iam role for worker node group with these policies 
+----------------------------------------------------------
+
+AmazonEKSWorkerNodePolicy
+AmazonEC2ContainerRegistryReadOnly
+AmazonEKS_CNI_Policy
+
+
+
+ 
+To connect with eks-cluster 
+---------------------------
+
+create a client machine 
+install kubectl 
+
+ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+ kubectl version --client
+ 
+ 
+ install aws cli 
+ aws configure 
+ 
+ access key --   
+ secret key --    
+ 
+ aws eks update-kubeconfig --name <name of the cluster> --region us-east-1
